@@ -30,7 +30,7 @@ try {
         echo $e;
     echo "Something went wrong";
 }
-if($_GET['type'] == "map") {
+if($_GET['type'] == "maps") {
 	$data = array(
 		array(
 		'title' => $data[1]['Name'],

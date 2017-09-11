@@ -18,22 +18,22 @@ try {
 	echo "Connection failed, try again later";
 }
 
-$jsonData = $database->query('SELECT Location.idLocation, Location.latitude, location.longitude, Location.Name, location.Desc FROM Location');
+$query = 'SELECT Location.idLocation, Location.latitude, location.longitude, Location.Name, location.Desc FROM Location';
 
-while ($jsonData = $database->fetch($jsonData)) {
+$submit = $database->prepare($query);
 
-$json = array(
-	'id' => $jsonData['idLocation'],
-	'key' => $jsonData['idLocation'],
-	'amount' => 1,
-	'coordinate' => array(
-		'latitude' => $jsonData['latitude'],
-		'longitude' => $jsonData['longitude']
-	)
-);
+try {
+        $submit->execute();
+        $data = $submit->fetchAll();
+        print_r($data);
+    } catch (PDOException $e) {
+        echo $e;
+    echo "Something went wrong";
 }
 
 header('Content-Type: application/json');
 
-json_encode($json);
+$json = json_encode($data);
 
+print($json);
+?>

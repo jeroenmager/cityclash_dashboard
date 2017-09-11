@@ -18,7 +18,7 @@ try {
 	echo "Connection failed, try again later";
 }
 
-$jsonData = $database->query('SELECT * FROM Location');
+$jsonData = $database->query('SELECT Location.idLocation, Location.latitude, location.longitude, Location.Name, location.Desc FROM Location');
 
 $json = array(
 	'id' => $jsonData['idLocation'],

@@ -20,15 +20,14 @@ try {
 
 $jsonData = $database->query('SELECT Location.idLocation, Location.latitude, location.longitude, Location.Name, location.Desc FROM Location');
 
-while ($jsonData = $database->fetch($jsonData)) {
 
 $json = array(
-	'id' => $jsonData['idLocation'],
-	'key' => $jsonData['idLocation'],
+	'id' => $jsonData[0]['idLocation'],
+	'key' => $jsonData[0]['idLocation'],
 	'amount' => 1,
 	'coordinate' => array(
-		'latitude' => $jsonData['latitude'],
-		'longitude' => $jsonData['longitude']
+		'latitude' => $jsonData[0]['latitude'],
+		'longitude' => $jsonData[0]['longitude']
 	)
 );
 }

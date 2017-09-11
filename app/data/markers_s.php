@@ -30,7 +30,25 @@ try {
         echo $e;
     echo "Something went wrong";
 }
-
+if($_GET['type'] == "map") {
+	echo "maps";
+} else {
+	echo "app";
+	$json_test = json_encode($data);
+	print_r($json_test);
+	echo "\n";
+	echo "custom";
+	echo "\n";
+	$data = array(
+	'id' => $data[0]['idLocation'],
+	'key' => $data[0]['idLocation'],
+	'amount' => 1,
+	'coordinate' => array(
+		'latitude' => $data[1]['latitude'],
+		'longitude' => $data[1]['longitude']
+	)
+);
+}
 header('Content-Type: application/json');
 
 $json = json_encode($data);

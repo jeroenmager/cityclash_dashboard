@@ -21,44 +21,61 @@ try {
 $query = 'SELECT Location.idLocation, Location.latitude, location.longitude, Location.Name, location.Desc FROM Location';
 
 $submit = $database->prepare($query);
-
+$dataArray = [];
 try {
         $submit->execute();
         $data = $submit->fetchAll();
         // print_r($data);
+    	if($_GET['type'] == "maps") {
+        foreach ($data as $value) {
+        	$dataCount = array(
+				'title' => $value['Name'],
+				'lat' => $value['latitude'],
+				'lng' => $value['longitude'],
+				'description' => $value['Desc']
+			);
+        	array_push($dataArray, $dataCount);
+        }
+    }
+        elseif($_GET['type'] == "app") {
+        	foreach ($data as $value) {
+				$dataCount = array(
+				'id' => $value['idLocation'],
+				'key' => $value['idLocation'],
+				'amount' => 1,
+				'coordinate' => array(
+				'latitude' => $value['latitude'],
+				'longitude' => $value['longitude']
+				),
+				'Desc' => $value['Desc']
+);
+        	}
+        }else {
+        	echo "type not valid";
+        }
     } catch (PDOException $e) {
         echo $e;
     echo "Something went wrong";
 }
-if($_GET['type'] == "maps") {
-	$data = array(
-		array(
-		'title' => $data[1]['Name'],
-		'lat' => $data[1]['latitude'],
-		'lng' => $data[1]['longitude'],
-		'description' => $data[1]['Desc']
-		),
-);
-} else {
-	$json_test = json_encode($data);
-	print_r($json_test);
-	echo "\n";
-	echo "custom";
-	echo "\n";
-	$data = array(
-	'id' => $data[0]['idLocation'],
-	'key' => $data[0]['idLocation'],
-	'amount' => 1,
-	'coordinate' => array(
-		'latitude' => $data[1]['latitude'],
-		'longitude' => $data[1]['longitude']
-	),
-	'Desc' => $data[1]['Desc']
-);
-}
+	
+// 	$json_test = json_encode($data);
+// 	print_r($json_test);
+// 	echo "\n";
+// 	echo "custom";
+// 	echo "\n";
+// 	$data = array(
+// 	'id' => $data[0]['idLocation'],
+// 	'key' => $data[0]['idLocation'],
+// 	'amount' => 1,
+// 	'coordinate' => array(
+// 		'latitude' => $data[0]['latitude'],
+// 		'longitude' => $data[0]['longitude']
+// 	),
+// 	'Desc' => $data[0]['Desc']
+// );
 header('Content-Type: application/json');
 
-$json = json_encode($data);
+$json = json_encode($dataCount);
 
-print_r($json);
+print($json);
 ?>

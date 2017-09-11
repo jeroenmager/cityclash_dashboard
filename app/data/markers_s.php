@@ -48,7 +48,8 @@ try {
 				'longitude' => $value['longitude']
 				),
 				'Desc' => $value['Desc']
-);
+			);
+			array_push($dataArray, $dataCount);
         	}
         }else {
         	echo "type not valid";
@@ -75,7 +76,7 @@ try {
 // );
 header('Content-Type: application/json');
 
-$json = json_encode($dataCount);
+$json = json_encode($dataArray);
 
 print($json);
 ?>

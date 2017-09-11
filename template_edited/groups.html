@@ -126,44 +126,101 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Groepen toevoegen</h4>
                                 
                             </div>
-                            <div class="content">
-                                
-                            Groepsnaam: &nbsp;<input type="text"><br>
-                            <br><input type="submit" value="Opslaan">
-                            
-                                <div class="footer">
-                                    
-                                    <hr>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            <div class="content table-responsive table-full-width">
+                                <div class="content">
+                                    <form action="addtodb.php" method="POST" enctype="multipart/form-data">
+                                        <div class="row">
+                                            
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="GroupName">Groep naam</label>
+                                                    <input type="text" name="GroupName" class="form-control" placeholder="Groep naam" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="GroupPassword">Groep wachtwoord</label>
+                                                    <input type="text" name="GroupPassword" class="form-control" placeholder="Groep wachtwoord" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label for="GroupRole">Groep rol</label>
+                                                    <select name="GroupRole" class="form-control">
+                                                    <option value="user">Gebruiker</option>
+                                                    <option value="admin">Admin</option>
+                                                    </select>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
 
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Groepen</h4>
-                            </div>
-                            <div class="content">
-                                <p>Hieronder vind u een lijst van groepen die aangemaakt zijn.</p>
-                                <div class="footer">
-                                    
-                                    <hr>
-                                    
+                                        <button type="submit" class="btn btn-info btn-fill pull-right">Groep toevoegen</button>
+                                        <div class="clearfix"></div>
+                                    </form>      
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-    </div>
-</div>
+            </div>
+            
+            
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Organisatie toevoegen</h4>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <div class="content">
+                                    <form action="addtodb.php" method="POST" enctype="multipart/form-data">
+                                        <div class="row">
+                                            
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="OrgName">Organisatie naam</label>
+                                                    <input type="text" name="OrgName" class="form-control" placeholder="Organisatie naam" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="OrgDate">Datum</label>
+                                                    <input type="date" name="OrgDate" class="form-control" placeholder="Groep wachtwoord" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label for="OrgDESC">Extra informatie</label>
+                                                    <input type="text" name="OrgDESC" class="form-control" placeholder="Extra informatie" value="">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-info btn-fill pull-right">Organisatie toevoegen</button>
+                                        <div class="clearfix"></div>
+                                    </form>      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+        </div>
 
     </div>
 </div>

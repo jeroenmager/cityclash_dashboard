@@ -112,6 +112,7 @@ demo = {
     
     initGoogleMaps: function(){
         var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
+        var myLatlng2 = new google.maps.LatLng(40.7522211,-73.9868706);
         var mapOptions = {
           zoom: 13,
           center: myLatlng,
@@ -124,12 +125,26 @@ demo = {
 
 
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        
         
         var marker = new google.maps.Marker({
             position: myLatlng,
             title:"Hello World!"
         });
         
+        
+        $.getJSON("data/markers_s.php?type=maps", function(json1) {
+    $.each(json1, function(key, data) {
+        var latLng = new google.maps.LatLng(data.lat, data.lng); 
+        // Creating a marker and putting it on the map
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+            title: data.title
+        });
+    });
+});
         // To add the marker to the map, call setMap();
         marker.setMap(map);
     },

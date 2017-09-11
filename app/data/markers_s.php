@@ -47,7 +47,6 @@ try {
 				'latitude' => $value['latitude'],
 				'longitude' => $value['longitude']
 				),
-				'Desc' => $value['Desc']
 			);
 			array_push($dataArray, $dataCount);
         	}

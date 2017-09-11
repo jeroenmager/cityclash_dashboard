@@ -18,7 +18,7 @@ try {
 	echo "Connection failed, try again later";
 }
 
-$query = 'SELECT Location.idLocation, Location.latitude, location.longitude, Location.Name, location.Desc FROM Location';
+$query = 'SELECT Location.idLocation, Location.latitude, Location.longitude, Location.Name, Location.Desc FROM Location';
 
 $submit = $database->prepare($query);
 $dataArray = [];
@@ -40,12 +40,13 @@ try {
         elseif($_GET['type'] == "app") {
         	foreach ($data as $value) {
 				$dataCount = array(
-				'id' => $value['idLocation'],
-				'key' => $value['idLocation'],
+				'id' => (float)$value['idLocation'],
+				'key' => (float)$value['idLocation'],
+                                'color' => 'red',
 				'amount' => 1,
 				'coordinate' => array(
-				'latitude' => $value['latitude'],
-				'longitude' => $value['longitude']
+				'latitude' => (float)$value['latitude'],
+				'longitude' => (float)$value['longitude']
 				),
 			);
 			array_push($dataArray, $dataCount);
@@ -73,9 +74,10 @@ try {
 // 	),
 // 	'Desc' => $data[0]['Desc']
 // );
-header('Content-Type: application/json');
+//header('Content-Type: application/json');
 
 $json = json_encode($dataArray);
 
-print($json);
+header('Content-Type: application/json');
+echo $json;
 ?>

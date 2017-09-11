@@ -32,10 +32,12 @@ try {
 }
 if($_GET['type'] == "map") {
 	$data = array(
+		array(
 		'title' => $data[1]['Name'],
 		'lat' => $data[1]['latitude'],
 		'lng' => $data[1]['longitude'],
 		'description' => $data[1]['Desc']
+		),
 );
 } else {
 	$json_test = json_encode($data);

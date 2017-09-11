@@ -25,15 +25,19 @@ $submit = $database->prepare($query);
 try {
         $submit->execute();
         $data = $submit->fetchAll();
-        print_r($data);
+        // print_r($data);
     } catch (PDOException $e) {
         echo $e;
     echo "Something went wrong";
 }
 if($_GET['type'] == "map") {
-	echo "maps";
+	$data = array(
+		'title' => $data[1]['Name'],
+		'lat' => $data[1]['latitude'],
+		'lng' => $data[1]['longitude'],
+		'description' => $data[1]['Desc']
+);
 } else {
-	echo "app";
 	$json_test = json_encode($data);
 	print_r($json_test);
 	echo "\n";
@@ -46,12 +50,13 @@ if($_GET['type'] == "map") {
 	'coordinate' => array(
 		'latitude' => $data[1]['latitude'],
 		'longitude' => $data[1]['longitude']
-	)
+	),
+	'Desc' => $data[1]['Desc']
 );
 }
 header('Content-Type: application/json');
 
 $json = json_encode($data);
 
-print($json);
+print_r($json);
 ?>

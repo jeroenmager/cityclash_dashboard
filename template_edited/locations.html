@@ -134,54 +134,46 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Locatie toevoegen</h4>
-                                
+                                <h4 class="title">Striped Table with Hover</h4>
+                                <p class="category">Here is a subtitle for this table</p>
                             </div>
-                            <div class="content">
-                                
-                            Lengtegraad: &nbsp;<input type="text"><br>
-                            Breedtegraad: &nbsp;<input type="text"><br>
-                            Naam: &nbsp;<input type="text">
-                            <br><input type="submit" value="Opslaan">
-                            
-                                <div class="footer">
-                                    
-                                    <hr>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            <div class="content table-responsive table-full-width">
+                                <div class="content">
+                                    <form action="addtodb.php" method="POST" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label for="locName">Locatie Naam</label>
+                                                    <input type="text" name="locName" class="form-control" placeholder="Locatie Naam" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="locLat">Locatie Latitude</label>
+                                                    <input type="text" name="locLat" class="form-control" placeholder="Locatie Lat" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="locLng">Locatie Longtitude</label>
+                                                    <input type="text" name="locLng" class="form-control" placeholder="Locatie Lng" value="">
+                                                </div>
+                                            </div>
+                                        </div>
 
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Locaties</h4>
-                            </div>
-                            <div class="content">
-                                <p>Hier worden de locaties opgehaald die hier links worden toegevoegd</p>
-                                <div class="footer">
-                                    
-                                    <hr>
-                                    
+                                        <button type="submit" class="btn btn-info btn-fill pull-right">Add Location</button>
+                                        <div class="clearfix"></div>
+                                    </form>      
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
-                
-
-
-        
-
-    </div>
-</div>
+            </div>
+        </div>
 
 
 </body>

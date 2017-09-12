@@ -269,8 +269,7 @@ body > .navbar-collapse {
     .sidebar .nav li.active > a,
     body > .navbar-collapse .nav li.active > a {
       color: #FFFFFF;
-      opacity: 1;
-      background: rgba(255, 255, 255, 0.23); }
+      opacity: 1;}
     .sidebar .nav li.separator,
     body > .navbar-collapse .nav li.separator {
       margin: 15px 0;

@@ -132,7 +132,7 @@
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Vragen</h4>
-                                <p class="category">Vragen toevoegen, bewerken en/of verwijderen</p>
+                                <p class="category">Vragen toevoegen</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <div class="content">
@@ -157,8 +157,9 @@
                                                 <div class="form-group">
                                                     <label for="TypeQ">Type vraag</label>
                                                     <select name="TypeQ" class="form-control">
-                                                    <option value="text">Tekst</option>
-                                                    <option value="pic">Foto</option>
+                                                    <option value="OpenQ">Open vraag</option>
+                                                    <option value="MultiQ">Multiplechoice vraag</option>
+                                                    <option value="PicQ">Foto vraag</option>
                                                     </select>
                                                     
                                                 </div>
@@ -178,7 +179,48 @@
                     </div>
                 </div>
             </div>
-        </div>
+            
+            <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Vragen</h4>
+                                <p class="category"> Vragen bewerken / verwijderen</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th>Vraag nr</th>
+                                    	<th>Vraag</th>
+                                    	<th>Foto</th>
+                                    	<th>Actief</th>
+                                    	<th>Locatie</th>
+                                        <th>Type vraag</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        	<td>1</td>
+                                        	<td></td>
+                                        	<td></td>
+                                        	<td>
+                                            
+                                                <select name="Active" class="form-control">
+                                                <option value="Yes">Ja</option>
+                                                <option value="No">Nee</option>
+                                                </select></td>
+                                        	<td></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+            
+            
+            
+        </div> 
+<!--        einde content div-->
 
         
 

@@ -126,18 +126,41 @@ demo = {
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
         
         
-        $.getJSON("data/markers_s.php?type=maps", function(json1) {
-    $.each(json1, function(key, data) {
-        var latLng = new google.maps.LatLng(data.lat, data.lng); 
-        // Creating a marker and putting it on the map
-        var marker = new google.maps.Marker({
-            position: latLng,
-            map: map,
-            title: data.title
+            $.getJSON("data/markers_s.php?type=maps", function(json1) {
+        $.each(json1, function(key, data) {
+            var latLng = new google.maps.LatLng(data.lat, data.lng); 
+            // Creating a marker and putting it on the map
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                title: data.title,
+                desc: data.description,
+                img: "https://www.regioleidscherijn.nl/wp-content/uploads/2017/03/kasteel_de_haar2_128x128.jpg"
+            });
+                           var infowindow = new google.maps.InfoWindow({
+                            content: " "
+                          });
+                          google.maps.event.addListener(marker, 'click', function() {
+                                if (this.desc !== null) {
+                                infowindow.setContent('<div id="mapCont"><img class="mapImg" src="'+this.img+'"/>' +
+                                                      '<div class="mapTitle">Naam: <p><b>'+this.title+'</b></p></div>' + 
+                                                      '<div class="mapHead">Date: <div class="mapInfo">'+this.date+'</div>' +
+                                                      '<div class="mapHead">Time: <div class="mapInfo">'+this.time+'</div>' +
+                                                      '<p>'+this.desc+'</p></div>');
+                                infowindow.open(map, this);
+                            }
+                            else {
+                                                      infowindow.setContent('<div id="mapCont"><img class="mapImg" src=/>' +
+                                                      '<div class="mapTitle">Naam: <p><b></b></p></div>' + 
+                                                      '<div class="mapHead">Date: <div class="mapInfo"></div>' +
+                                                      '<div class="mapHead">Time: <div class="mapInfo"></div>' +
+                                                      '<p>Error: Geen beschrijving gevonden! Voeg deze toe in het menu.</p></div>');
+                                infowindow.open(map, this);
+                            }
+                          });
         });
     });
-});
-        // To add the marker to the map, call setMap();
+            // To add the marker to the map, call setMap();
         marker.setMap(map);
     },
     

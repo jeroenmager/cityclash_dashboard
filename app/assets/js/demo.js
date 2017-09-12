@@ -145,7 +145,7 @@ demo = {
                             content: " "
                           });
                           google.maps.event.addListener(marker, 'click', function() {
-                                infowindow.setContent('<div id="mapCont"><img class="mapImg" src="'+this.img+'"/>' +
+                                infowindow.setContent('<div id="mapCont"><img width="100px" height="100px" class="mapImg" src="data:image/jpeg;base64,'+this.img+'"/>' +
                                                       '<div class="mapTitle">Naam: <p><b>'+this.title+'</b></p></div>' + 
                                                       '<p>'+this.desc+'</p></div>');
                                 infowindow.open(map, this);

@@ -1,0 +1,331 @@
+<?php
+
+require ('assets/db/config.php');
+require('assets/classes/addtodb.class.php');
+$new_question = new Database();
+
+?>
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>SchoolClash</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="assets/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="assets/css/demo.css" rel="stylesheet" />
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
+
+    <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
+
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="http://www.creative-tim.com" class="simple-text">
+                    Schoolclash
+                </a>
+            </div>
+
+            <ul class="nav">
+                <li>
+                    <a href="locations.html">
+                        <i class="pe-7s-graph"></i>
+                        <p>Locaties</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="groups.html">
+                        <i class="pe-7s-user"></i>
+                        <p>Groepen</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="loctoevent.html">
+                        <i class="pe-7s-note2"></i>
+                        <p>Locaties koppelen aan een event</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="evtogroup.html">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>Event koppelen aan groep</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="question.html">
+                        <i class="pe-7s-science"></i>
+                        <p>Vragenlijst</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="results.html">
+                        <i class="pe-7s-bell"></i>
+                        <p>Resultatenlijst</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="maps.html">
+                        <i class="pe-7s-map-marker"></i>
+                        <p>Maps</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+
+    <div class="main-panel">
+		<nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Vragenlijst</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                       
+                       
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                      
+                        <li>
+                            <a href="#">
+                                <p>Log out</p>
+                            </a>
+                        </li>
+						<li class="separator hidden-lg hidden-md"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Vragen</h4>
+                                <p class="category">Vragen toevoegen</p>
+                                <?php
+                                    
+                                    if (isset($_POST['question'])){
+                                        if($_POST['question'] != ''){
+                                            $question = $_POST['question'];
+                                            $type = $_POST['TypeQ'];
+                                            
+
+                                            /*-------------------
+                                            IMAGE QUERY 
+                                            ---------------*/
+
+
+                                            $file   =$_FILES['image']['tmp_name'];
+                                            if(!isset($file))
+                                            {
+                                              echo 'Please select an Image';
+                                            }
+                                            else 
+                                            {
+                                               $image_check = getimagesize($_FILES['image']['tmp_name']);
+                                               if($image_check==false)
+                                               {
+                                                echo '<div class="alert alert-warning">
+                                                <strong>Let Op!</strong> De afbeelding is onjuist!
+                                                </div>
+                                                ';
+                                               }
+                                               else
+                                               {
+                                                $image = file_get_contents($_FILES['image']['tmp_name']);
+                                                
+//                                                set new Question
+                                                $new_question->set_question($question, $image, $type);
+                                                $new_question->db_execute();
+                                                echo '<div class="alert alert-success">
+                                                    <strong>Success!</strong> Vraag is toegevoegd aan de Database!
+                                                    </div>
+                                                    ';
+                                                
+                                               }
+                                           }
+                                                /*-----------------
+                                            IMAGE QUERY END
+                                            ---------------------*/
+
+                                   
+                                        }else{
+//                                            $new_locatie->generate_message("één of meerdere velden zijn leeg");
+                                                echo '<div class="alert alert-warning">
+                                                <strong>Let Op!</strong> Een of meerdere velden zijn niet ingevult!
+                                                </div>
+                                                ';
+                                        }
+                                    }
+                                    
+                                    ?>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <div class="content">
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label for="question">Vraag</label>
+                                                    <input type="text" name="question" class="form-control" placeholder="Vraag" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="Picture">Foto</label>
+                                                    <input type="file" class="form-control" name="image">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="TypeQ">Type vraag</label>
+                                                    <select name="TypeQ" class="form-control">
+                                                    <option value="OpenQ">Open vraag</option>
+                                                    <option value="MultiQ">Multiplechoice vraag</option>
+                                                    <option value="PicQ">Foto vraag</option>
+                                                    </select>
+                                                    
+                                                </div>
+                                            </div>
+                                            
+                                        
+
+                                        
+                                        
+                                        </div>
+                                        <button type="submit" class="btn btn-info btn-fill pull-right">Vraag toevoegen</button>
+                                        <div class="clearfix"></div>
+                                    </form>      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Vragen</h4>
+                                <p class="category"> Vragen bewerken / verwijderen</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th>Vraag nr</th>
+                                    	<th>Vraag</th>
+                                    	<th>Foto</th>
+                                    	<th>Actief</th>
+                                    	<th>Locatie</th>
+                                        <th>Type vraag</th>
+                                        <th>Wijzigen</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        	<td>1</td>
+                                        	<td></td>
+                                        	<td></td>
+                                        	<td>
+                                            
+                                                <select name="Active" class="form-control" disabled>
+                                                <option value="Yes">Ja</option>
+                                                <option value="No">Nee</option>
+                                                </select></td>
+                                        	<td></td>
+                                            <td></td>
+                                            <td>
+                                             <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                                                <div class="font-icon-detail"><i class="pe-7s-pen"></i></div>
+                                            </div>
+                                                
+                                            <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                                                <div class="font-icon-detail"><i class="pe-7s-trash"></i></div>
+                                            </div>
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+            
+            
+            
+        </div> 
+<!--        einde content div-->
+
+        
+
+
+    </div>
+</div>
+
+
+</body>
+
+       <!--   Core JS Files   -->
+    <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<script src="assets/js/bootstrap-checkbox-radio-switch.js"></script>
+
+	<!--  Charts Plugin -->
+	<script src="assets/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="assets/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="assets/js/light-bootstrap-dashboard.js"></script>
+
+	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+	<script src="assets/js/demo.js"></script>
+
+
+</html>

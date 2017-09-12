@@ -63,4 +63,3 @@ $json = json_encode($dataArray);
 
 header('Content-Type: application/json');
 echo $json;
-?>

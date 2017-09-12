@@ -8,6 +8,6 @@
 
 // Define configuration
 define("DB_HOST", "localhost");
-define("DB_USER", "cityclash");
+define("DB_USER", "cityclash_admin");
 define("DB_PASS", "cityclash123");
 define("DB_NAME", "cityclash_db");

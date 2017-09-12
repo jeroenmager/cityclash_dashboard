@@ -54,6 +54,26 @@ class Database {
         $this->success_message = "Locatie is toegevoegd";
     }
     
+    function set_question($question, $image, $type){
+        $this->stmt = $this->dbh->prepare("INSERT INTO Question (Text, Photo, type) VALUES (:vraag, :image, :type)");
+        
+        $this->stmt->bindValue(':vraag', $question);
+        $this->stmt->bindValue(':image', $image);
+        $this->stmt->bindValue(':type', $type);
+        
+        $this->success_message = "Vraag is toegevoegd";
+    }
+    
+        function get_questions($question, $image, $type){
+        $this->stmt = $this->dbh->prepare("SELECT * FROM Question");
+        
+        $this->stmt->bindValue(':vraag', $question);
+        $this->stmt->bindValue(':image', $image);
+        $this->stmt->bindValue(':type', $type);
+        
+        $this->success_message = "Vraag is toegevoegd";
+    }
+    
     function db_execute(){
         $this->stmt->execute();
         return $this->success_message;

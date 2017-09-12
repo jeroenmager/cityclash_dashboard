@@ -2,8 +2,8 @@
 
 
 $servername = "localhost";
-$username = "cityclash";
-$password = "cityclash123";
+$username = "root";
+$password = "bikohond";
 $dbname = "cityclash_db";
 
 $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

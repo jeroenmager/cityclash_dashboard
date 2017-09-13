@@ -15,7 +15,7 @@ $new_locatie = new Database();
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>CityClash Dashboard</title>
+    <title> Locatie</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -50,41 +50,47 @@ $new_locatie = new Database();
 
 
         <div class="sidebar-wrapper">
-            <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    CityClash
+             <div class="logo">
+                <a href="http://www.schoolclash.eu/" class="simple-text">
+                    SchoolClash
                 </a>
             </div>
 
             <ul class="nav">
-                <li>
-                    <a href="dashboard.html">
+               <li>
+                    <a href="location.php">
                         <i class="pe-7s-graph"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="user.html">
-                        <i class="pe-7s-user"></i>
-                        <p>User Profile</p>
+                        <p>Locaties</p>
                     </a>
                 </li>
                 <li class="active">
-                    <a href="table.html">
+                    <a href="groups.html">
+                        <i class="pe-7s-user"></i>
+                        <p>Groepen</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="loctoevent.html">
                         <i class="pe-7s-note2"></i>
-                        <p>Table List</p>
+                        <p>Locaties koppelen aan een event</p>
                     </a>
                 </li>
                 <li>
-                    <a href="typography.html">
+                    <a href="evtogroup.html">
                         <i class="pe-7s-news-paper"></i>
-                        <p>Typography</p>
+                        <p>Event koppelen aan groep</p>
                     </a>
                 </li>
                 <li>
-                    <a href="icons.html">
+                    <a href="questions.php">
                         <i class="pe-7s-science"></i>
-                        <p>Icons</p>
+                        <p>Vragenlijst</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="results.php">
+                        <i class="pe-7s-bell"></i>
+                        <p>Resultatenlijst</p>
                     </a>
                 </li>
                 <li>
@@ -93,12 +99,7 @@ $new_locatie = new Database();
                         <p>Maps</p>
                     </a>
                 </li>
-                <li>
-                    <a href="notifications.html">
-                        <i class="pe-7s-bell"></i>
-                        <p>Notifications</p>
-                    </a>
-                </li>
+				
             </ul>
         </div>
     </div>
@@ -113,66 +114,15 @@ $new_locatie = new Database();
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">New</a>
+                    <a class="navbar-brand" href="#">Locaties</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-dashboard"></i>
-                                <p class="hidden-lg hidden-md">Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-sm hidden-xs"></b>
-                                    <span class="notification hidden-sm hidden-xs">5</span>
-                                    <p class="hidden-lg hidden-md">
-                                        5 Notifications
-                                        <b class="caret"></b>
-                                    </p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
-                        </li>
-                        <li>
-                           <a href="">
-                                <i class="fa fa-search"></i>
-                                <p class="hidden-lg hidden-md">Search</p>
-                            </a>
-                        </li>
+  
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                           <a href="">
-                               <p>Account</p>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <p>
-                                        Dropdown
-                                        <b class="caret"></b>
-                                    </p>
 
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                              </ul>
-                        </li>
                         <li>
                             <a href="#">
                                 <p>Log out</p>
@@ -253,40 +203,6 @@ $new_locatie = new Database();
                 </div>
             </div>
         </div>
-
-        <footer class="footer">
-            <div class="container-fluid">
-                <nav class="pull-left">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Company
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Portfolio
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                               Blog
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
-                </p>
-            </div>
-        </footer>
-
-
     </div>
 </div>
 

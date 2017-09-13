@@ -58,7 +58,7 @@ $del_question = new Database();
 
             <ul class="nav">
                 <li>
-                    <a href="locations.html">
+                    <a href="location.php">
                         <i class="pe-7s-graph"></i>
                         <p>Locaties</p>
                     </a>
@@ -82,7 +82,7 @@ $del_question = new Database();
                     </a>
                 </li>
                 <li>
-                    <a href="question.html">
+                    <a href="question.php">
                         <i class="pe-7s-science"></i>
                         <p>Vragenlijst</p>
                     </a>

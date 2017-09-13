@@ -30,12 +30,16 @@ try {
 	foreach ($data as $value) {
 	$dataCount = array(
 		'id' => (float)$value['idQuestion'],
-			'text' => $value['Text'],
-			'photo' => base64_encode($value['Photo']),
-			'video' => $value['Video'],
-			'Active' => $value['Active'],
-			'Location_idLocation' => (float)$value['Location_idLocation'],
-			'type' => $value['type']
+		'titel' => $value['Titel'],
+		'text' => $value['Text'],
+		'photo' => base64_encode($value['Photo']),
+		'video' => $value['Video'],
+		'Active' => $value['Active'],
+		'Location_idLocation' => (float)$value['Location_idLocation'],
+		'answer1' => $value['answer1'],
+		'answer2' => $value['answer1'],
+		'answer3' => $value['answer1'],
+		'type' => $value['type']
 	);
     array_push($dataArray, $dataCount);
     }
@@ -44,11 +48,15 @@ elseif($_GET['type'] == "app") {
 	foreach ($data as $value) {
 		$dataCount = array(
 			'id' => (float)$value['idQuestion'],
+			'titel' => $value['titel'],
 			'text' => $value['Text'],
 			'photo' => base64_encode($value['Photo']),
 			'video' => $value['Video'],
 			'Active' => $value['Active'],
 			'Location_idLocation' => (float)$value['Location_idLocation'],
+			'answer1' => $value['answer1'],
+			'answer2' => $value['answer1'],
+			'answer3' => $value['answer1'],
 			'type' => $value['type']
 		);
 	array_push($dataArray, $dataCount);

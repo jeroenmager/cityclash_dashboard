@@ -37,8 +37,9 @@ try {
 		'Active' => $value['Active'],
 		'Location_idLocation' => (float)$value['Location_idLocation'],
 		'answer1' => $value['answer1'],
-		'answer2' => $value['answer1'],
-		'answer3' => $value['answer1'],
+		'answer2' => $value['answer2'],
+		'answer3' => $value['answer3'],
+		'answer4' => $value['answer4'],
 		'type' => $value['type']
 	);
     array_push($dataArray, $dataCount);
@@ -55,8 +56,9 @@ elseif($_GET['type'] == "app") {
 			'Active' => $value['Active'],
 			'Location_idLocation' => (float)$value['Location_idLocation'],
 			'answer1' => $value['answer1'],
-			'answer2' => $value['answer1'],
-			'answer3' => $value['answer1'],
+			'answer2' => $value['answer2'],
+			'answer3' => $value['answer3'],
+			'answer4' => $value['answer4'],
 			'type' => $value['type']
 		);
 	array_push($dataArray, $dataCount);

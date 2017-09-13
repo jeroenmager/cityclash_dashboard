@@ -64,7 +64,7 @@ class Database {
         $this->success_message = "Vraag is toegevoegd";
     }
     
-        function get_questions($question, $image, $type){
+    function get_questions($question, $image, $type){
         $this->stmt = $this->dbh->prepare("SELECT * FROM Question");
         
         $this->stmt->bindValue(':vraag', $question);
@@ -72,6 +72,14 @@ class Database {
         $this->stmt->bindValue(':type', $type);
         
         $this->success_message = "Vraag is toegevoegd";
+    }
+    
+    function del_question($id){
+        $this->stmt = $this->dbh->prepare("DELETE FROM Question WHERE idQuestion = :id");
+        
+        $this->stmt->bindValue(':id', $id);
+        
+        $this->success_message = "Vraag is verwijderd";
     }
     
     function db_execute(){

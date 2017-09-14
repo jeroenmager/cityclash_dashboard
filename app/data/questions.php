@@ -18,7 +18,7 @@ try {
 	echo "Connection failed, try again later";
 }
 
-$query = 'SELECT Question.idQuestion, Question.Text, Question.Photo, Question.Video, Question.Active, Question.Location_idLocation, Question.type FROM Question';
+$query = 'SELECT Question.idQuestion, Question.Text, Question.Photo, Question.Video, Question.Active, Question.Location_idLocation, Question.type, Question.answer1, Question.answer2, Question.answer3, Question.answer4 FROM Question';
 
 $submit = $database->prepare($query);
 $dataArray = [];

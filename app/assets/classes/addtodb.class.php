@@ -64,16 +64,6 @@ class Database {
         $this->success_message = "Vraag is toegevoegd";
     }
     
-    function get_questions($question, $image, $type){
-        $this->stmt = $this->dbh->prepare("SELECT * FROM Question");
-        
-        $this->stmt->bindValue(':vraag', $question);
-        $this->stmt->bindValue(':image', $image);
-        $this->stmt->bindValue(':type', $type);
-        
-        $this->success_message = "Vraag is toegevoegd";
-    }
-    
     function del_question($id){
         $this->stmt = $this->dbh->prepare("DELETE FROM Question WHERE idQuestion = :id");
         
@@ -82,10 +72,23 @@ class Database {
         $this->success_message = "Vraag is verwijderd";
     }
     
+    function get_images($id){
+        $this->stmt = $this->dbh->prepare("SELECT Question.idQuestion, Question.Photo FROM Question WHERE Question.idQuestion = :id");
+        
+        $this->stmt->bindValue(':id', $id);
+        
+        $this->success_message = "Vraag is toegevoegd";
+    }
+    
     function db_execute(){
         $this->stmt->execute();
         return $this->success_message;
     }
+    
+    public function resultset(){
+        $this->stmt->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+}
     
     function generate_message($message){
         return $message;

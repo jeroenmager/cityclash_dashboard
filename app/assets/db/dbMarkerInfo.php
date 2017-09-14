@@ -24,7 +24,7 @@ try {
 		$dataCount = array(
 			'id' => (float)$value['idQuestion'],
 			'text' => $value['Text'],
-			'photo' => base64_encode($value['Photo']),
+			'photo' => $value['Photo'],
 			'video' => $value['Video'],
 			'Active' => $value['Active'],
 			'Location_idLocation' => (float)$value['Location_idLocation'],

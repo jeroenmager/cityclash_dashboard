@@ -2,22 +2,31 @@
 
 // Define configuration
 define("DB_HOST", "localhost");
-define("DB_USER", "cityclash");
-define("DB_PASS", "cityclash123");
+define("DB_USER", "root");
+define("DB_PASS", "bikohond");
 define("DB_NAME", "cityclash_db");
 
 require('assets/classes/addtodb.class.php');
 
-if (isset($_POST['locName']) && isset($_POST['locLat']) && isset($_POST['locLng'])){
-    if($_POST['locName'] != '' || $_POST['locLat'] != '' || $_POST['locLng'] != ''){
-        $locNaam = $_POST['locName'];
-        $locLat = $_POST['locLat'];
-        $locLng = $_POST['locLng'];
+try {
+    $database = new
+    PDO("mysql:host=$dbhost;dbname=$dbname", $user, $pass);
+    $database->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION );
+} catch(PDOException $e) {
+    echo $e->getMessage();
+    echo "Connection failed, try again later";
+}
+
+if (isset($_POST['GroupName']) && isset($_POST['GroupPassword']) && isset($_POST['GroupRole'])){
+    if($_POST['GroupName'] != '' || $_POST['GroupPassword'] != '' || $_POST['GroupRole'] != ''){
+        $groupName = $_POST['GroupName'];
+        $groupPassword = $_POST['GroupPassword'];
+        $groupRole = $_POST['GroupRole'];
 
 
-        $new_locatie = new Database();
-        $new_locatie->set_location($locNaam, $locLat, $locLng);
-        $new_locatie->db_execute();
+        $query = 'INSERT INTO User (Role, Name, Password, Active) VALUES ($groupRole, $groupName, $groupPassword, "1";';
+        $submit = $data
+
     }else{
         echo 'één of meerdere velden zijn leeg';
     }

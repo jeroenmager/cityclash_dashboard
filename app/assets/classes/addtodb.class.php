@@ -54,12 +54,20 @@ class Database {
         $this->success_message = "Locatie is toegevoegd";
     }
     
-    function set_question($question, $image, $type){
-        $this->stmt = $this->dbh->prepare("INSERT INTO Question (Text, Photo, type) VALUES (:vraag, :image, :type)");
+    function set_question($question, $image, $type, $locID, $answer1, $answer2, $answer3, $answer4){
+        $this->stmt = $this->dbh->prepare("INSERT INTO Question (Text, Photo, type, Location_idLocation, answer1, answer2, answer3, "
+                . "answer4) VALUES (:vraag, :image, :type, :locID, :answer1, :answer2, :answer3, :answer4)");
         
         $this->stmt->bindValue(':vraag', $question);
         $this->stmt->bindValue(':image', $image);
         $this->stmt->bindValue(':type', $type);
+        
+        $this->stmt->bindValue(':answer1', $answer1);
+        $this->stmt->bindValue(':answer2', $answer2);
+        $this->stmt->bindValue(':answer3', $answer3);
+        $this->stmt->bindValue(':answer4', $answer4);
+        
+        $this->stmt->bindValue(':locID', $locID);
         
         $this->success_message = "Vraag is toegevoegd";
     }
@@ -78,6 +86,10 @@ class Database {
         $this->stmt->bindValue(':id', $id);
         
         $this->success_message = "Vraag is toegevoegd";
+    }
+    
+    function get_locations(){
+        $this->stmt = $this->dbh->prepare("SELECT Location.idLocation, Location.Name, Location.Active FROM Location");
     }
     
     function db_execute(){

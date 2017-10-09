@@ -1,3 +1,17 @@
+<?php 
+
+require ('assets/db/config.php');
+require('assets/classes/addtodb.class.php');
+
+$group = new Database();
+$del_User = new Database();
+
+$groupName = 0;
+$groupPassword = 0;
+$groupRole = 0;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,11 +39,11 @@
 				</div>
 				<ul class="nav">
 					<li>
-						<a href="location.php"><i class="pe-7s-graph"></i>
+						<a href="location.php"><i class="pe-7s-map-2"></i>
 						<p>Locaties</p></a>
 					</li>
 					<li class="active">
-						<a href="groups.html"><i class="pe-7s-user"></i>
+						<a href="groups.php"><i class="pe-7s-user"></i>
 						<p>Groepen</p></a>
 					</li>
 					<li>
@@ -37,8 +51,12 @@
 						<p>Vragenlijst</p></a>
 					</li>
 					<li>
-						<a href="results.html"><i class="pe-7s-bell"></i>
+						<a href="results.html"><i class="pe-7s-folder"></i>
 						<p>Resultatenlijst</p></a>
+					</li>
+                                        <li>
+						<a href="gallery.php"><i class="pe-7s-photo"></i>
+						<p>Gallerij</p></a>
 					</li>
 					<li>
 						<a href="maps.html"><i class="pe-7s-map-marker"></i>
@@ -72,10 +90,37 @@
 							<div class="card">
 								<div class="header">
 									<h4 class="title">Groepen toevoegen</h4>
+                                                                        <?php
+                                                                        
+
+                                                                        if (isset($_POST['GroupName']) && isset($_POST['GroupPassword']) && isset($_POST['GroupRole'])){
+                                                                            if($_POST['GroupName'] != '' || $_POST['GroupPassword'] != '' || $_POST['GroupRole'] != ''){
+                                                                                $groupName = $_POST['GroupName'];
+                                                                                $groupPassword = $_POST['GroupPassword'];
+                                                                                $groupRole = $_POST['GroupRole'];
+
+
+                                                                                $group->set_group($groupRole, $groupName, $groupPassword);
+                                                                                $group->db_execute();
+                                                                                echo '<div class="alert alert-success">
+                                                                                    <strong>Success!</strong> Groep is toegevoegd
+                                                                                    </div>
+                                                                                    ';
+
+                                                                            }else{
+                                                                                echo '<div class="alert alert-danger">
+                                                                                    <strong>Failed!</strong> één of meerdere velden zijn leeg
+                                                                                    </div>
+                                                                                    ';
+                                                                            }
+                                                                        }
+
+                                                                        ?>
+
 								</div>
 								<div class="content table-responsive table-full-width">
 									<div class="content">
-										<form action="groupstodb.php" enctype="multipart/form-data" method="post">
+										<form action="" enctype="multipart/form-data" method="post">
 											<div class="row">
 												<div class="col-md-3">
 													<div class="form-group">
@@ -90,10 +135,10 @@
 												<div class="col-md-5">
 													<div class="form-group">
 														<label for="GroupRole">Groep rol</label> <select class="form-control" name="GroupRole">
-															<option value="user">
+															<option value="0">
 																Gebruiker
 															</option>
-															<option value="admin">
+															<option value="1">
 																Admin
 															</option>
 														</select>
@@ -108,11 +153,20 @@
 						</div>
 					</div>
 				</div>
+                            <div class="row">
 				<div class="col-md-12">
 					<div class="card">
 						<div class="header">
 							<h4 class="title">Groepen</h4>
 							<p class="category">Groepen verwijderen</p>
+                                                        <?php 
+                                                        if(isset($_GET['del']) && $_GET['del'] != ''){
+                                                            $del_id = $_GET['del'];
+                                                            $del_User->del_user($del_id);
+                                                            $del_User->db_execute();
+                                                            echo '<script>alert("Groep is verwijderd");window.location.href = "http://'.$_SERVER["HTTP_HOST"].$_SERVER["PHP_SELF"].'";</script>';
+                                                        }
+                                                        ?>
 						</div>
 						<div class="content table-responsive table-full-width">
 							<table class="table table-hover table-striped">
@@ -123,25 +177,28 @@
 										<th>Wachtwoord</th>
 										<th>Actief</th>
 										<th>Role</th>
-										<th>Type</th>
 										<th>Verwijderen groep</th>
 									</tr>
 								</thead>
 								<tbody>
+                                                                    <?php 
+                                                                    
+                                                                    $getGroups = new Database();
+                                                                    $getGroups->get_groups();
+                                                                    $getGroups->db_execute();
+                                                                    
+                                                                    $groupsList = $getGroups->resultset();
+                                                                    foreach($groupsList as $Glist){ ?>
 									<tr>
-										<td>1</td>
-										<td></td>
-										<td></td>
-										<td><select class="form-control" name="Active">
-											<option value="Yes">
-												Ja
-											</option>
-											<option value="No">
-												Nee
+										<td><?php echo $Glist['idUser']?></td>
+										<td><?php echo $Glist['Name']?></td>
+										<td><?php echo $Glist['Password']?></td>
+										<td><select class="form-control" name="Active" disabled>
+											<option>
+                                                                                                <?php if($Glist['Active'] == "0"){echo "No";}elseif($Glist['Active'] == "1"){echo "Yes";}?>
 											</option>
 										</select></td>
-										<td></td>
-										<td></td>
+										<td><?php if($Glist['Role'] == "0"){echo "Gebruiker";}elseif($Glist['Role'] == "1"){echo "Admin";}?></td>
 										<td>
 											<div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
 												<div class="font-icon-detail">
@@ -149,17 +206,19 @@
 												</div>
 											</div>
 											<div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-												<div class="font-icon-detail">
+												<a href="?del=<?php echo $Glist['idUser']?>"><div class="font-icon-detail">
 													<i class="pe-7s-trash"></i>
-												</div>
+                                                                                                    </div></a>
 											</div>
 										</td>
 									</tr>
+                                                                    <?php } ?>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
+                            </div>
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-13">

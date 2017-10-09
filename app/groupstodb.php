@@ -1,11 +1,8 @@
 <?php
-//assign variables for connection
-$db = parse_ini_file("data/database.ini");
+require ('assets/db/config.php');
+require('assets/classes/addtodb.class.php');
 
-$dbhost = $db['host'];
-$dbname = $db['name'];
-$user = $db['user'];
-$pass = $db['pass'];
+$group = new Database();
 
 $groupName = 0;
 $groupPassword = 0;
@@ -16,6 +13,11 @@ if (isset($_POST['GroupName']) && isset($_POST['GroupPassword']) && isset($_POST
         $groupName = $_POST['GroupName'];
         $groupPassword = $_POST['GroupPassword'];
         $groupRole = $_POST['GroupRole'];
+        
+
+        $group->set_group($groupRole, $groupName, $groupPassword);
+        $group->db_execute();
+        echo "test";
 
     }else{
         echo 'één of meerdere velden zijn leeg';
@@ -24,19 +26,3 @@ if (isset($_POST['GroupName']) && isset($_POST['GroupPassword']) && isset($_POST
     echo 'Er is iets fout gegaan';
 }
 
-try {
-    $database = new
-    PDO("mysql:host=$dbhost;dbname=$dbname", $user, $pass);
-    $database->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION );
-
-    $query = "INSERT INTO User (Role, Name, Password) VALUES ('" .$groupRole . "', '" . $groupName . "', '" . $groupPassword . "');";
-    $submit = $database->prepare($query);
-    $submit->execute();
-    echo "User toegevoegd in database";
-    header("groups.html");
-	die();
-} catch(PDOException $e) {
-    echo $e->getMessage();
-    echo "Connection failed, try again later";
-}
-?>

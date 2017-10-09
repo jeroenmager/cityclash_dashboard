@@ -2,8 +2,6 @@
 
 require ('assets/db/config.php');
 require ('assets/classes/addtodb.class.php');
-
-include ('assets/img/resize_image.php');
 $new_question = new Database();
 $del_question = new Database();
 
@@ -53,55 +51,37 @@ $del_question = new Database();
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
+                <a href="http://www.schoolclash.eu/" class="simple-text">
                     Schoolclash
                 </a>
             </div>
 
             <ul class="nav">
-                <li>
-                    <a href="location.php">
-                        <i class="pe-7s-graph"></i>
-                        <p>Locaties</p>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="groups.html">
-                        <i class="pe-7s-user"></i>
-                        <p>Groepen</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="loctoevent.html">
-                        <i class="pe-7s-note2"></i>
-                        <p>Locaties koppelen aan een event</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="evtogroup.html">
-                        <i class="pe-7s-news-paper"></i>
-                        <p>Event koppelen aan groep</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="question.php">
-                        <i class="pe-7s-science"></i>
-                        <p>Vragenlijst</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="results.html">
-                        <i class="pe-7s-bell"></i>
-                        <p>Resultatenlijst</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="maps.html">
-                        <i class="pe-7s-map-marker"></i>
-                        <p>Maps</p>
-                    </a>
-                </li>
-            </ul>
+					<li>
+						<a href="location.php"><i class="pe-7s-map-2"></i>
+						<p>Locaties</p></a>
+					</li>
+					<li class="active">
+						<a href="groups.php"><i class="pe-7s-user"></i>
+						<p>Groepen</p></a>
+					</li>
+					<li>
+						<a href="questions.php"><i class="pe-7s-science"></i>
+						<p>Vragenlijst</p></a>
+					</li>
+					<li>
+						<a href="results.html"><i class="pe-7s-folder"></i>
+						<p>Resultatenlijst</p></a>
+					</li>
+                                        <li>
+						<a href="gallery.php"><i class="pe-7s-photo"></i>
+						<p>Gallerij</p></a>
+					</li>
+					<li>
+						<a href="maps.html"><i class="pe-7s-map-marker"></i>
+						<p>Maps</p></a>
+					</li>
+				</ul>
     	</div>
     </div>
 

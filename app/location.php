@@ -2,6 +2,7 @@
 
 require ('assets/db/config.php');
 require('assets/classes/addtodb.class.php');
+require('assets/functions/geoCoding.php');
 $new_locatie = new Database();
 
 ?>
@@ -57,50 +58,31 @@ $new_locatie = new Database();
             </div>
 
             <ul class="nav">
-               <li>
-                    <a href="location.php">
-                        <i class="pe-7s-graph"></i>
-                        <p>Locaties</p>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="groups.html">
-                        <i class="pe-7s-user"></i>
-                        <p>Groepen</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="loctoevent.html">
-                        <i class="pe-7s-note2"></i>
-                        <p>Locaties koppelen aan een event</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="evtogroup.html">
-                        <i class="pe-7s-news-paper"></i>
-                        <p>Event koppelen aan groep</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="questions.php">
-                        <i class="pe-7s-science"></i>
-                        <p>Vragenlijst</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="results.php">
-                        <i class="pe-7s-bell"></i>
-                        <p>Resultatenlijst</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="maps.html">
-                        <i class="pe-7s-map-marker"></i>
-                        <p>Maps</p>
-                    </a>
-                </li>
-				
-            </ul>
+					<li>
+						<a href="location.php"><i class="pe-7s-map-2"></i>
+						<p>Locaties</p></a>
+					</li>
+					<li class="active">
+						<a href="groups.php"><i class="pe-7s-user"></i>
+						<p>Groepen</p></a>
+					</li>
+					<li>
+						<a href="questions.php"><i class="pe-7s-science"></i>
+						<p>Vragenlijst</p></a>
+					</li>
+					<li>
+						<a href="results.html"><i class="pe-7s-folder"></i>
+						<p>Resultatenlijst</p></a>
+					</li>
+                                        <li>
+						<a href="gallery.php"><i class="pe-7s-photo"></i>
+						<p>Gallerij</p></a>
+					</li>
+					<li>
+						<a href="maps.html"><i class="pe-7s-map-marker"></i>
+						<p>Maps</p></a>
+					</li>
+				</ul>
         </div>
     </div>
 
@@ -144,15 +126,22 @@ $new_locatie = new Database();
                                 <p class="category">Een nieuw locatie toevoegen naar de database</p>
                                 <?php
                                     
-                                    if (isset($_POST['locName']) && isset($_POST['locLat']) && isset($_POST['locLng'])){
-                                        if($_POST['locName'] != '' || $_POST['locLat'] != '' || $_POST['locLng'] != ''){
+                                    if (isset($_POST['locName']) && isset($_POST['locAdd'])){
+                                        if($_POST['locName'] != '' || $_POST['locAdd'] != ''){
                                             $locNaam = $_POST['locName'];
-                                            $locLat = $_POST['locLat'];
-                                            $locLng = $_POST['locLng'];
-
+                                            $locAdd = $_POST['locAdd'];
+                                            $addres_data = geocode($locAdd);
+                                            
+                                            if ($addres_data){
+                                                $latitude = $addres_data[0];
+                                                $longitude = $addres_data[1];
+                                            }else{
+                                                $latitude = "undefined";
+                                                $longitude = "undefined";
+                                            }
 
                                     //        set new locatie
-                                            $new_locatie->set_location($locNaam, $locLat, $locLng);
+                                            $new_locatie->set_location($locNaam, $latitude, $longitude);
                                             $new_locatie->db_execute();
                                             echo '<div class="alert alert-success">
                                                 <strong>Success!</strong> Locatie is toegevoegd aan de Database!
@@ -179,16 +168,10 @@ $new_locatie = new Database();
                                                     <input type="text" name="locName" class="form-control" placeholder="Locatie Naam" value="">
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-7">
                                                 <div class="form-group">
-                                                    <label for="locLat">Locatie Latitude</label>
-                                                    <input type="text" name="locLat" class="form-control" placeholder="Locatie Lat" value="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="locLng">Locatie Longtitude</label>
-                                                    <input type="text" name="locLng" class="form-control" placeholder="Locatie Lng" value="">
+                                                    <label for="locAdd">Locatie Adres</label>
+                                                    <input type="text" name="locAdd" class="form-control" placeholder="Locatie Adres" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -197,6 +180,66 @@ $new_locatie = new Database();
                                         <div class="clearfix"></div>
                                     </form>  
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Lijst van Locaties</h4>
+                                <p class="category">Locatie lijst</p>
+                                <?php
+                                $del_Location = new Database();
+                                
+                                if (isset($_GET['del']) && $_GET['del'] != '') {
+                                    $del_id = $_GET['del'];
+                                    $del_Location->del_location($del_id);
+                                    $del_Location->db_execute();
+                                    echo '<script>alert("Locatie is verwijderd");window.location.href = "http://' . $_SERVER["HTTP_HOST"] . $_SERVER["PHP_SELF"] . '";</script>';
+                                }
+                                ?>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Locatie ID</th>
+                                            <th>Locatie Naam</th>
+                                            <th>Locatie Lat</th>
+                                            <th>Locatie Lng</th>
+                                            <th>Verwijder locatie?</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $getLocations = new Database();
+                                        $getLocations->get_locations();
+                                        $getLocations->db_execute();
+
+                                        $locationsList = $getLocations->resultset();
+                                        foreach ($locationsList as $Llist) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $Llist['idLocation'] ?></td>
+                                                <td><?php echo $Llist['Name'] ?></td>
+                                                <td><?php echo $Llist['latitude'] ?></td>
+                                                <td><?php echo $Llist['longitude'] ?></td>
+                                                <td>
+                                                    <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                                                        <div class="font-icon-detail">
+                                                            <i class="pe-7s-pen"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                                                        <a href="?del=<?php echo $Llist['idLocation'] ?>"><div class="font-icon-detail">
+                                                                <i class="pe-7s-trash"></i>
+                                                            </div></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+<?php } ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

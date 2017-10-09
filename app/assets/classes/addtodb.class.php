@@ -54,6 +54,18 @@ class Database {
         $this->success_message = "Locatie is toegevoegd";
     }
     
+    function del_location($id){
+        $this->stmt = $this->dbh->prepare("DELETE FROM Location WHERE idLocation = :id");
+        
+        $this->stmt->bindValue(':id', $id);
+        
+        $this->success_message = "Locatie Verwijderd!";
+    }
+    
+    function get_locations(){
+        $this->stmt = $this->dbh->prepare("SELECT Location.idLocation, Location.Name, Location.Active, Location.latitude, Location.longitude FROM Location");
+    }
+    
     function set_question($question, $image, $type, $locID, $answer1, $answer2, $answer3, $answer4){
         $this->stmt = $this->dbh->prepare("INSERT INTO Question (Text, Photo, type, Location_idLocation, answer1, answer2, answer3, "
                 . "answer4) VALUES (:vraag, :image, :type, :locID, :answer1, :answer2, :answer3, :answer4)");
@@ -80,6 +92,14 @@ class Database {
         $this->success_message = "Vraag is verwijderd";
     }
     
+    function del_user($id){
+        $this->stmt = $this->dbh->prepare("DELETE FROM User WHERE idUser = :id");
+        
+        $this->stmt->bindValue(':id', $id);
+        
+        $this->success_message = "Vraag is verwijderd";
+    }
+    
     function get_images($id){
         $this->stmt = $this->dbh->prepare("SELECT Question.idQuestion, Question.Photo FROM Question WHERE Question.idQuestion = :id");
         
@@ -88,8 +108,18 @@ class Database {
         $this->success_message = "Vraag is toegevoegd";
     }
     
-    function get_locations(){
-        $this->stmt = $this->dbh->prepare("SELECT Location.idLocation, Location.Name, Location.Active FROM Location");
+    function set_group($Role, $Name, $Password){
+        $this->stmt = $this->dbh->prepare("INSERT INTO User (Role, Name, Password) VALUES (:Role, :Name, :Password)");
+        
+        $this->stmt->bindValue(':Role', $Role);
+        $this->stmt->bindValue(':Name', $Name);
+        $this->stmt->bindValue(':Password', $Password);
+        
+        $this->success_message = "Groep is toegevoegd";
+    }
+    
+    function get_groups(){
+        $this->stmt = $this->dbh->prepare("SELECT User.idUser, User.Role, User.Name, User.Password, User.Active FROM User");
     }
     
     function db_execute(){

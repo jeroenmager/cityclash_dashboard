@@ -170,8 +170,8 @@ $new_locatie = new Database();
                                             </div>
                                             <div class="col-md-7">
                                                 <div class="form-group">
-                                                    <label for="locAdd">Locatie Adres</label>
-                                                    <input type="text" name="locAdd" class="form-control" placeholder="Locatie Adres" value="">
+                                                    <label for="locAdd">Locatie Adres ( Address + Stad & land )</label>
+                                                    <input type="text" name="locAdd" class="form-control" placeholder="eg: Kurfürstendamm Berlijn Duitsland" value="">
                                                 </div>
                                             </div>
                                         </div>
